@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-class DelegatingFeeStrategyTest extends TimePeriodFeeStrategyTest {
+class CompositeFeeStrategyTest extends TimePeriodFeeStrategyTest {
 
     @Override
     TimePeriodFeeStrategy.Supplier supplier() {
@@ -15,7 +15,7 @@ class DelegatingFeeStrategyTest extends TimePeriodFeeStrategyTest {
             strategies.put(LocalDateTime.of(2019, 4, 2, 0, 0).with(daytimeEnd).minusHours(1),
                 new MaxPerDayFeeStrategy(daytimeBegin, daytimeEnd, daytimeFee, nightFee, Jpy.of(3000)));
             strategies.put(LocalDateTime.MAX, new MaxPerDayFeeStrategy(daytimeBegin, daytimeEnd, daytimeFee, nightFee, Jpy.INFINITE));
-            return new DelegatingFeeStrategy(strategies);
+            return new CompositeFeeStrategy(strategies);
         };
     }
 }

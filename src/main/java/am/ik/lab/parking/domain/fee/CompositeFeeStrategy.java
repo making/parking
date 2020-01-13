@@ -13,11 +13,11 @@ import java.util.TreeMap;
  * 日付によって変わる料金計算ルール<br>
  * ルールの詳細は個別クラスに委譲する。
  */
-public class DelegatingFeeStrategy implements FeeStrategy {
+public class CompositeFeeStrategy implements FeeStrategy {
 
     private final SortedMap<LocalDateTime, FeeStrategy> feeStrategies;
 
-    public DelegatingFeeStrategy(SortedMap<LocalDateTime, FeeStrategy> feeStrategies) {
+    public CompositeFeeStrategy(SortedMap<LocalDateTime, FeeStrategy> feeStrategies) {
         final LocalDateTime lastKey = feeStrategies.lastKey();
         if (!LocalDateTime.MAX.isEqual(lastKey)) {
             SortedMap<LocalDateTime, FeeStrategy> copy = new TreeMap<>(feeStrategies);
